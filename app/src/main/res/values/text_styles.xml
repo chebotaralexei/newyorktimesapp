@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+
+    Размеры:
+    Больше      вручную
+    VeryBig     = 20sp
+    Big         = 18sp
+    Medium      = 16sp
+    MediumSmall = 15sp
+    Normal      = 14sp
+    NormalSmall = 13sp
+    Small       = 12sp
+    VerySmall   = 11sp
+    Меньше      вручную
+
+    Стили       Шрифт               Цвет                    Дополнительно
+    Title       Roboto-Medium       Solid
+    Text        Roboto-Regular      Solid
+    Fat         Roboto-Bold         Solid
+    FatCaps     Roboto-Bold         Solid                   Caps
+    Secondary                       Half-Solid (Secondary)
+    Primary                         Primary
+
+    -->
+
+    <style name="TextAppearance">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/text_solid</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="TextAppearance">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextAppearance.Title.VeryBig" parent="TextAppearance.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.Title.Big" parent="TextAppearance.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Title.Medium" parent="TextAppearance.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Title.Normal" parent="TextAppearance.Title"/>
+
+    <style name="TextAppearance.Title.Small" parent="TextAppearance.Title">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Title.VerySmall" parent="TextAppearance.Title">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TextAppearance.Primary" parent="TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="TextAppearance.Primary.VerySmall" parent="TextAppearance.Primary">
+        <item name="android:textSize">11sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextAppearance.Primary.Normal" parent="TextAppearance.Primary"/>
+
+    <style name="TextAppearance.Primary.Medium" parent="TextAppearance.Primary">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Secondary" parent="TextAppearance">
+        <item name="android:textColor">@color/text_half_solid</item>
+    </style>
+
+    <style name="TextAppearance.Secondary.VerySmall" parent="TextAppearance.Secondary">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TextAppearance.Secondary.Small" parent="TextAppearance.Secondary">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Secondary.NormalSmall" parent="TextAppearance.Secondary">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Secondary.Normal" parent="TextAppearance.Secondary"/>
+
+    <style name="TextAppearance.Secondary.Medium" parent="TextAppearance.Secondary">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Text" parent="TextAppearance"/>
+
+    <style name="TextAppearance.Text.MediumSmall" parent="TextAppearance">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Text.Medium" parent="TextAppearance.Text">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Text.Small" parent="TextAppearance.Text">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Text.NormalSmall" parent="TextAppearance.Text">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.Multiline" parent="TextAppearance">
+        <item name="android:maxLines">9999</item>
+    </style>
+
+    <style name="TextAppearance.Fat" parent="TextAppearance">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextAppearance.Fat.Small" parent="TextAppearance.Fat">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.FatCaps" parent="TextAppearance.Fat">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.FatCaps.Small" parent="TextAppearance.FatCaps">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.Fat.Normal" parent="TextAppearance.Fat">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Fat.Medium" parent="TextAppearance.Fat">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

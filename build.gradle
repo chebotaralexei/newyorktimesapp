@@ -1,0 +1,36 @@
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    ext.androidSupport = '27.1.1'
+    ext.googleService = '12.0.1'
+    ext.autoValueGson = '0.5.0'
+    ext.retrofit2 = '2.3.0'
+    ext.okHttp = '3.8.1'
+    ext.dagger = '2.11'
+    ext.butterKnife = '8.8.1'
+    ext.moxy = '1.5.3'
+    ext.requery = '1.4.0'
+    ext.picasso = '2.5.2'
+    ext.buildToolsVersion = "27.0.3"
+    ext.androidx = "1.0.0"
+    ext.room = "1.1.1"
+    ext.sdkVersion = 28
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

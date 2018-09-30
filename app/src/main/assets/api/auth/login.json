@@ -1,0 +1,35 @@
+{
+  "data": {
+    "id": "1",
+    "name": "Имя",
+    "surname": "Фамилия",
+    "email": "pavlov@profmax.pro",
+    "access_token": "1234",
+    "refresh_token": "123456",
+    "favourites_count": 0,
+    "orders_count": 240,
+    "addresses": [
+      {
+        "id": "1",
+        "user_id": "25847",
+        "address": "Москва, ул. Строителей, д. 5"
+      }
+    ],
+    "bonus_card": {
+      "id": "10",
+      "number_card": "020675",
+      "client_code": "10010",
+      "active_balance": "98.95",
+      "non_active_balance": "n/a",
+      "phone": "89068003970",
+      "name": "ШАФ",
+      "email": "",
+      "sex": "0",
+      "birth_date": "10071985",
+      "sms": "0",
+      "shop": "n/a"
+    }
+  },
+  "errors": null,
+  "status": 200
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NewYorkTimesApp</string>
+    <string name="forgotPass">Забыли пароль?</string>
+    <string name="enter">Вход</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+</resources>
