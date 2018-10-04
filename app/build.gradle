@@ -4,7 +4,7 @@ android {
     compileSdkVersion sdkVersion
     defaultConfig {
         applicationId "ru.chebotar.newyorktimesapp"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion sdkVersion
         versionCode 1
         versionName "1.0"
