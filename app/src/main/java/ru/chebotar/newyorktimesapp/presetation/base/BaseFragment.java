@@ -48,7 +48,7 @@ public abstract class BaseFragment extends Fragment implements BackButtonListene
     protected abstract int setLayoutRes();
 
     /**
-     * Вызываеться после бинда вьюшек
+     * Вызываеться после установки лэйаута
      */
     protected void onPostCreateView() {
         // nothing

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import ru.chebotar.newyorktimesapp.R;
+import ru.chebotar.newyorktimesapp.presetation.about.AboutFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, LoginFragment.getNewInstance(LoginFragment.getBundle()))
+                    .replace(R.id.container, AboutFragment.getNewInstance(AboutFragment.getBundle()))
                     .commit();
     }
 }

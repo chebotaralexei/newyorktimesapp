@@ -4,4 +4,14 @@
     <string name="enter">Вход</string>
     <string name="email">Почта</string>
     <string name="password">Пароль</string>
+    <string name="message_hint">Enter text</string>
+    <string name="message_button">Send message</string>
+    <string name="name">Alexey Chebotar</string>
+    <string name="no_email_app">Не удалось найти приложение для отправки письма</string>
+    <string name="boom">Boom</string>
+    <string name="king_bird_studio">King Bird Studio</string>
+    <string name="description">Alexey working as Android developer since 2015. He have implement three full apps and working partilly on about ten apps.\n\nLoves coding on Android.</string>
+    <string name="vk_url">https://vk.com/likeagenius</string>
+    <string name="insta_url">https://www.instagram.com/alex_chebotar/</string>
+    <string name="fb_url">https://www.facebook.com/chebotar.alex</string>
 </resources>

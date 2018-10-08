@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ava"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/placeholder_logo1"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="34dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/boom"
+                />
+
+            <TextView
+                android:id="@+id/placeholder_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/placeholder_logo1"
+                android:gravity="center_vertical"
+                android:minHeight="28dp"
+                android:text="@string/boom"/>
+
+            <ImageView
+                android:id="@+id/placeholder_logo2"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_below="@+id/placeholder_text1"
+                android:layout_alignLeft="@+id/placeholder_logo1"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/kb"
+                />
+
+            <TextView
+                android:id="@+id/placeholder_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/placeholder_logo2"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/placeholder_logo2"
+                android:gravity="center_vertical"
+                android:minHeight="28dp"
+                android:text="@string/king_bird_studio"/>
+
+            <View
+                android:id="@+id/upper_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/placeholder_text2"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#f00"/>
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/upper_separator"
+                android:text="@string/description"/>
+
+            <View
+                android:id="@+id/lower_separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/about"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#f00"
+                />
+
+            <EditText
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lower_separator"
+                android:hint="@string/message_hint"/>
+
+            <Button
+                android:id="@+id/send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message"
+                android:layout_alignEnd="@+id/message"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/message_button"
+                android:textColor="#f00"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/send_message"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom">
+
+                <ImageView
+                    android:id="@+id/vk_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/vk"
+                    />
+
+                <ImageView
+                    android:id="@+id/instagram_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/insta"
+                    />
+
+                <ImageView
+                    android:id="@+id/facebook_logo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/fb"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
