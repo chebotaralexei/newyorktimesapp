@@ -58,8 +58,8 @@ dependencies {
 
     // Test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 
     // Rx 2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
@@ -90,4 +90,17 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide"
+
+    // Moxy
+    implementation "com.arello-mobile:moxy-app-compat:$moxy"
+    implementation "com.android.support:appcompat-v7:$moxy"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$moxy"
+
+    // Cicerone
+    implementation "ru.terrakok.cicerone:cicerone:$cicerone"
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+
 }
