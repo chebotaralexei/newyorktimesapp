@@ -1,4 +1,4 @@
-package ru.chebotar.newyorktimesapp.presetation;
+package ru.chebotar.newyorktimesapp.presetation.login;
 
 import android.os.Bundle;
 import android.widget.EditText;

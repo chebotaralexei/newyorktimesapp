@@ -80,10 +80,10 @@ public abstract class BaseFragment extends Fragment implements BackButtonListene
         rootView = inflater.inflate(setLayoutRes(), container, false);
         progressBar = rootView.findViewById(R.id.progressBar);
         toolbar = rootView.findViewById(R.id.toolbar);
+        onPostCreateView();
         if (toolbar != null) {
             configureToolbar(toolbar);
         }
-        onPostCreateView();
         return rootView;
     }
 
