@@ -1,4 +1,4 @@
-package ru.chebotar.newyorktimesapp.presetation;
+package ru.chebotar.newyorktimesapp.data.test.model;
 
 import java.util.ArrayList;
 import java.util.Date;

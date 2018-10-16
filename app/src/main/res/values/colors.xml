@@ -6,6 +6,10 @@
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>
+    <color name="red">#11f44336</color>
+    <color name="blue">#11304ffe</color>
+    <color name="green">#1164dd17</color>
+    <color name="yellow">#11ffeb3b</color>
 
     <color name="text_half_solid">#80000000</color>
     <color name="text_solid">#000000</color>

@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion sdkVersion
@@ -57,9 +60,10 @@ dependencies {
     implementation "com.google.android.material:material:$androidx"
 
     // Test
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 
     // Rx 2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
@@ -71,7 +75,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
     // Dagger 2
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
     implementation "com.google.dagger:dagger:$dagger"
 
     // Retrofit 2
@@ -81,10 +85,28 @@ dependencies {
 
     // Room
     implementation "android.arch.persistence.room:runtime:$room"
-    annotationProcessor "android.arch.persistence.room:compiler:$room"
+    kapt "android.arch.persistence.room:compiler:$room"
     implementation "android.arch.persistence.room:rxjava2:$room"
-    implementation "android.arch.lifecycle:extensions:$room"
-    annotationProcessor "android.arch.lifecycle:compiler:$room"
-    testImplementation "android.arch.persistence.room:testing:$room"
 
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    // Moxy
+    implementation "com.arello-mobile:moxy-app-compat:$moxy"
+    implementation "com.android.support:appcompat-v7:$moxy"
+    kapt "com.arello-mobile:moxy-compiler:$moxy"
+
+    // Cicerone
+    implementation "ru.terrakok.cicerone:cicerone:$cicerone"
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$butterKnife"
+    kapt "com.jakewharton:butterknife-compiler:$butterKnife"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+}
+repositories {
+    mavenCentral()
 }
