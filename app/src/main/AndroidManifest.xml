@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="ru.chebotar.newyorktimesapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presetation.MainActivity"
+        <activity
+            android:name=".presetation.MainActivity"
             android:configChanges="keyboardHidden"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -23,6 +24,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".presetation.TestActivity">
         </activity>
     </application>
 
