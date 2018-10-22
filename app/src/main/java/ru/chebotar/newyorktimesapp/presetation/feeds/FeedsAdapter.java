@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 
+import org.jetbrains.annotations.NonNls;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +24,11 @@ import ru.chebotar.newyorktimesapp.utils.Utils;
 
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHolder> {
 
-    private List<NewsItem> feeds;
+    private List<NewsItem> feeds = new ArrayList<>();
     private RequestManager requestManager;
     private Consumer<NewsItem> click;
 
-    public FeedsAdapter(List<NewsItem> dataset, RequestManager requestManager, Consumer<NewsItem> click) {
-        this.feeds = dataset;
+    public FeedsAdapter(RequestManager requestManager, Consumer<NewsItem> click) {
         this.requestManager = requestManager;
         this.click = click;
     }
@@ -50,6 +53,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
     @Override
     public int getItemCount() {
         return feeds.size();
+    }
+
+    public void setData(@NonNull final List<NewsItem> newsItems) {
+        feeds.clear();
+        feeds.addAll(newsItems);
+        notifyDataSetChanged();
     }
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
@@ -80,8 +89,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
             description.setText(newsItem.getPreviewText());
             time.setText(Utils.formatDate(newsItem.getPublishDate()));
             requestManager.load(newsItem.getImageUrl()).into(image);
-            cardView.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(),colors[viewType-1]));
-            cardView.setOnClickListener(v-> {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), colors[viewType - 1]));
+            cardView.setOnClickListener(v -> {
                 try {
                     click.accept(newsItem);
                 } catch (Exception e) {
