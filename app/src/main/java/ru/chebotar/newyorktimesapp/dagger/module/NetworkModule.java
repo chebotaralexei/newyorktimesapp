@@ -15,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.chebotar.newyorktimesapp.BuildConfig;
 import ru.chebotar.newyorktimesapp.data.network.RxErrorHandlingCallAdapterFactory;
 import ru.chebotar.newyorktimesapp.data.network.ServerAPI;
-import ru.chebotar.newyorktimesapp.data.network.interceptors.OkHttpMockInterceptor;
 import ru.chebotar.newyorktimesapp.data.preference.Preferences;
 
 /**
@@ -32,13 +31,6 @@ public class NetworkModule {
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS);
-        if (BuildConfig.DEBUG)
-            builder.addInterceptor(new OkHttpMockInterceptor(application,
-                    1,
-                    "",
-                    500,
-                    1000,
-                    preferences));
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);

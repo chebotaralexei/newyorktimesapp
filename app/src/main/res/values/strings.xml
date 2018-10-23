@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">NY Times</string>
+    <string name="api_key_nyt">d8e1a9137fe749a2af6506c3bb625113</string>
     <string name="forgotPass">Забыли пароль?</string>
     <string name="enter">Вход</string>
     <string name="email">Почта</string>
