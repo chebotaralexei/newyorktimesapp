@@ -23,7 +23,6 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
     private MvpDelegate<? extends MvpBaseFragment> mMvpDelegate;
 
     protected View rootView;
-    private View progressBar;
     private Toolbar toolbar;
     private Toast toast;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -37,7 +36,6 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(setLayoutRes(), container, false);
-        progressBar = rootView.findViewById(R.id.progressBar);
         toolbar = rootView.findViewById(R.id.toolbar);
         onPostCreateView();
         if (toolbar != null) {
@@ -86,11 +84,6 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
         if (toast != null) toast.cancel();
         toast = Toast.makeText(getContext(), message, Toast.LENGTH_LONG);
         toast.show();
-    }
-
-    public void showLoading(boolean b) {
-        if (progressBar != null)
-            progressBar.setVisibility(b ? View.VISIBLE : View.GONE);
     }
 
     @Override

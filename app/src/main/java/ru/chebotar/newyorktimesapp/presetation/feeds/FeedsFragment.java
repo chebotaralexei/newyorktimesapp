@@ -1,6 +1,7 @@
 package ru.chebotar.newyorktimesapp.presetation.feeds;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.chebotar.newyorktimesapp.R;
 import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
+import ru.chebotar.newyorktimesapp.presetation.WebViewFragment;
 import ru.chebotar.newyorktimesapp.presetation.base.MvpBaseFragment;
 import ru.chebotar.newyorktimesapp.presetation.feed.FeedFragment;
 
@@ -24,6 +26,7 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private FeedsAdapter adapter;
+    private View progressBar;
 
     @Override
     protected int setLayoutRes() {
@@ -51,6 +54,7 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
 
     @Override
     protected void onPostCreateView() {
+        progressBar = rootView.findViewById(R.id.progressBar);
         recyclerView = rootView.findViewById(R.id.news_list);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.span_count));
@@ -69,7 +73,7 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, FeedFragment.getNewInstance(FeedFragment.getBundle(feed)))
+                .replace(R.id.container, WebViewFragment.getNewInstance(WebViewFragment.getBundle(feed.getUrl())))
                 .addToBackStack(null)
                 .commit();
     }
@@ -82,6 +86,12 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
 
     @Override
     public boolean onBackPressed() {
-        return true;
+        return false;
     }
+
+    public void showLoading(boolean b) {
+        if (progressBar != null)
+            progressBar.setVisibility(b ? View.VISIBLE : View.GONE);
+    }
+
 }
