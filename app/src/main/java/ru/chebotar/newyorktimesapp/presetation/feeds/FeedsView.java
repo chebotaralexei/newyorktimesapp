@@ -14,4 +14,6 @@ public interface FeedsView extends MvpView {
     void showData(List<NewsDTO> data);
 
     void showLoading(boolean b);
+
+    void showError();
 }

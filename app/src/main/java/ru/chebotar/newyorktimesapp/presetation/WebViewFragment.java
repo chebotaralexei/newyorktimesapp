@@ -53,7 +53,6 @@ public class WebViewFragment extends MvpBaseFragment {
     @Override
     protected void onPostCreateView() {
         webView = rootView.findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
         webView.loadUrl(getArguments().getString(KEY_URL));
     }

@@ -28,7 +28,8 @@ import androidx.annotation.Nullable;
 
 public class Utils {
 
-    private static final String DATE_FORMAT_API = "dd.MM.yyyy hh:mm:ss";
+    private static final String DATE_FORMAT_API = "yyyy-MM-dd'T'HH:mm:ss";
+    private static final String DATE_FORMAT = "dd MMM, HH:mm";
 
     public static int dpToPx(Context context, int dp) {
         if (context==null) return 0;
@@ -214,7 +215,7 @@ public class Utils {
 
     public static String formatDate(Date date) {
         if (date != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_API, Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
             return dateFormat.format(date);
         }
         return "";

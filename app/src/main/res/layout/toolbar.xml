@@ -6,6 +6,7 @@
     android:id="@+id/toolbar"
     android:elevation="3dp"
     tools:title="Toolbar"
+    android:theme="@style/Toolbar"
     app:titleTextColor="@color/white"
     android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"

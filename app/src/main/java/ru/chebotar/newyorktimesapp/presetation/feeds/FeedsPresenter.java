@@ -15,23 +15,32 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
 
     @Inject
     NewsScreenInteractor newsScreenInteractor;
+    private String section = "home";
 
     public FeedsPresenter() {
         App.INSTANCE.getAppComponent().inject(this);
     }
 
 
-    public void getFeeds() {
+    public void getFeeds(boolean progress) {
         compositeDisposable.add(
-                newsScreenInteractor.getNews("home")
+                newsScreenInteractor.getNews(section)
                         .map(newsDTOResult -> newsDTOResult.data)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe(disposable -> getViewState().showLoading(true))
+                        .doOnSubscribe(disposable -> getViewState().showLoading(progress))
                         .subscribe(newsItems -> {
                             getViewState().showData(newsItems);
                             getViewState().showLoading(false);
-                        }, t-> getViewState().showLoading(false))
+                        }, t -> getViewState().showError())
         );
+    }
+
+    public void onMenuItemClick(String section) {
+        if (!this.section.equals(section)) {
+            this.section = section;
+            getFeeds(false);
+        }
+
     }
 }

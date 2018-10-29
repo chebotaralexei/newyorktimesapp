@@ -15,4 +15,6 @@
     <string name="vk_url">https://vk.com/likeagenius</string>
     <string name="insta_url">https://www.instagram.com/alex_chebotar/</string>
     <string name="fb_url">https://www.facebook.com/chebotar.alex</string>
+    <string name="refresh">Обновить</string>
+    <string name="error_happen">Возникла ошибка</string>
 </resources>
