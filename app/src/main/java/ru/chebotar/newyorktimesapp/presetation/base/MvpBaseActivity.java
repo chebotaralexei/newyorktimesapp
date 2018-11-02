@@ -6,8 +6,8 @@ import com.arellomobile.mvp.MvpDelegate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class BaseMvpActivity extends AppCompatActivity {
-	private MvpDelegate<? extends BaseMvpActivity> mMvpDelegate;
+public abstract class MvpBaseActivity extends AppCompatActivity {
+	private MvpDelegate<? extends MvpBaseActivity> mMvpDelegate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

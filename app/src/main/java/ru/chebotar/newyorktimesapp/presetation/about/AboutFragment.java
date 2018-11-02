@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import ru.chebotar.newyorktimesapp.R;
-import ru.chebotar.newyorktimesapp.presetation.base.BaseFragment;
+import ru.chebotar.newyorktimesapp.presetation.base.MvpBaseFragment;
 
-public class AboutFragment extends BaseFragment {
+public class AboutFragment extends MvpBaseFragment {
 
     private Button sendMessageButton;
     private EditText editText;

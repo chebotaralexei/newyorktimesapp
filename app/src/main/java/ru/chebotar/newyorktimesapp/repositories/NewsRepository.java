@@ -1,29 +1,28 @@
 package ru.chebotar.newyorktimesapp.repositories;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import ru.chebotar.newyorktimesapp.data.network.ServerAPI;
+import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
 import ru.chebotar.newyorktimesapp.data.network.models.Result;
 import ru.chebotar.newyorktimesapp.data.network.models.User;
 
 @Singleton
-public class LoginRepository extends BaseRepository {
+public class NewsRepository extends BaseRepository {
 
     private final ServerAPI serverAPI;
 
     @Inject
-    public LoginRepository(ServerAPI serverAPI) {
+    public NewsRepository(ServerAPI serverAPI) {
         this.serverAPI = serverAPI;
     }
 
-    public Flowable<Result<User>> auth(String email, String pass) {
-        return serverAPI.auth(email, pass);
-    }
-
-
-    public Flowable<Result<User>> getUser() {
-        return serverAPI.getUser();
+    public Single<Result<List<NewsDTO>>> getNews(String section) {
+        return serverAPI.getNews(section);
     }
 }

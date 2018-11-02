@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import ru.chebotar.newyorktimesapp.dagger.module.ApplicationModule;
 import ru.chebotar.newyorktimesapp.dagger.module.NetworkModule;
-import ru.chebotar.newyorktimesapp.presetation.login.LoginFragment;
+import ru.chebotar.newyorktimesapp.presetation.feeds.FeedsPresenter;
 
 /**
  * Добавляет обьекты в граф зависимостей.
@@ -17,5 +17,5 @@ import ru.chebotar.newyorktimesapp.presetation.login.LoginFragment;
 })
 public interface AppComponent {
 
-    void inject(LoginFragment fragment);
+    void inject(FeedsPresenter presenter);
 }

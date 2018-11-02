@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import ru.chebotar.newyorktimesapp.R;
-import ru.chebotar.newyorktimesapp.data.test.model.NewsItem;
-import ru.chebotar.newyorktimesapp.presetation.base.BaseFragment;
+import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
+import ru.chebotar.newyorktimesapp.presetation.base.MvpBaseFragment;
 import ru.chebotar.newyorktimesapp.utils.Utils;
 
-public class FeedFragment extends BaseFragment {
+public class FeedFragment extends MvpBaseFragment {
     public TextView title;
     public TextView fullText;
     public TextView time;
     public ImageView image;
     private static final String KEY_FEED = "FEED";
-    private NewsItem feed;
+    private NewsDTO feed;
 
     @Override
     protected int setLayoutRes() {
@@ -33,29 +33,30 @@ public class FeedFragment extends BaseFragment {
         return fragment;
     }
 
-    public static Bundle getBundle(NewsItem feed) {
+    public static Bundle getBundle(NewsDTO feed) {
         Bundle arguments = new Bundle();
-        arguments.putSerializable(KEY_FEED, feed);
+        arguments.putParcelable(KEY_FEED, feed);
         return arguments;
     }
 
     @Override
     protected void onPostCreateView() {
-        feed = ((NewsItem) getArguments().getSerializable(KEY_FEED));
+        feed = getArguments().getParcelable(KEY_FEED);
         title = rootView.findViewById(R.id.title);
         time = rootView.findViewById(R.id.time);
         image = rootView.findViewById(R.id.image);
         fullText = rootView.findViewById(R.id.full_text);
         title.setText(feed.getTitle());
-        fullText.setText(feed.getFullText());
-        time.setText(Utils.formatDate(feed.getPublishDate()));
-        Glide.with(getContext()).load(feed.getImageUrl()).into(image);
+        fullText.setText(feed.getDescription());
+        time.setText(Utils.formatDate(Utils.getDate(feed.getPublishDate())));
+        if (!feed.getMultimedia().isEmpty())
+            Glide.with(getContext()).load(feed.getMultimedia().get(0).getUrl()).into(image);
     }
 
     @Override
     protected void configureToolbar(@NonNull Toolbar toolbar) {
         super.configureToolbar(toolbar);
-        toolbar.setTitle(feed.getCategory().getName());
+        toolbar.setTitle(feed.getSection());
     }
 
     @Override

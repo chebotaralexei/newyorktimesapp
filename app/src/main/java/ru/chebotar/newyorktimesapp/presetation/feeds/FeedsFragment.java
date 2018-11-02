@@ -2,35 +2,34 @@ package ru.chebotar.newyorktimesapp.presetation.feeds;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.Button;
 
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 
-
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ru.chebotar.newyorktimesapp.R;
-import ru.chebotar.newyorktimesapp.data.test.model.DataUtils;
-import ru.chebotar.newyorktimesapp.data.test.model.NewsItem;
-import ru.chebotar.newyorktimesapp.presetation.base.BaseFragment;
-import ru.chebotar.newyorktimesapp.presetation.feed.FeedFragment;
+import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
+import ru.chebotar.newyorktimesapp.presetation.WebViewFragment;
+import ru.chebotar.newyorktimesapp.presetation.base.MvpBaseFragment;
 
-public class FeedsFragment extends BaseFragment {
+public class FeedsFragment extends MvpBaseFragment implements FeedsView {
 
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private FeedsAdapter adapter;
-    private ProgressBar progressBar;
+    private SwipeRefreshLayout swl;
+    private View progressBar;
+    private View placeholder;
+    private Button refresh;
 
     @Override
     protected int setLayoutRes() {
@@ -48,34 +47,41 @@ public class FeedsFragment extends BaseFragment {
         return arguments;
     }
 
+    @InjectPresenter
+    public FeedsPresenter presenter;
+
+    @ProvidePresenter
+    FeedsPresenter provideTutorialPresenter() {
+        return new FeedsPresenter();
+    }
+
     @Override
     protected void onPostCreateView() {
+        progressBar = rootView.findViewById(R.id.progressBar);
+        refresh = rootView.findViewById(R.id.refresh);
+        placeholder = rootView.findViewById(R.id.placeholder);
         recyclerView = rootView.findViewById(R.id.news_list);
-        progressBar = rootView.findViewById(R.id.progress_bar);
+        swl = rootView.findViewById(R.id.swl);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.span_count));
         recyclerView.setLayoutManager(layoutManager);
         adapter = new FeedsAdapter(Glide.with(getContext()), this::navigateToFeed);
         recyclerView.setAdapter(adapter);
-        getFeeds();
+        presenter.getFeeds(true);
+        swl.setOnRefreshListener(() -> presenter.getFeeds(false));
+        refresh.setOnClickListener(v -> presenter.getFeeds(true));
     }
 
-    private void getFeeds() {
-        compositeDisposable.add(Single.just(DataUtils.generateNews())
-                .delay(2,TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> progressBar.setVisibility(View.VISIBLE))
-                .doAfterTerminate(() -> progressBar.setVisibility(View.GONE))
-                .subscribe(newsItems -> adapter.setData(newsItems))
-        );
+    public void showData(List<NewsDTO> data) {
+        adapter.setData(data);
     }
 
-    private void navigateToFeed(NewsItem feed) {
+
+    private void navigateToFeed(NewsDTO feed) {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, FeedFragment.getNewInstance(FeedFragment.getBundle(feed)))
+                .replace(R.id.container, WebViewFragment.getNewInstance(WebViewFragment.getBundle(feed.getUrl())))
                 .addToBackStack(null)
                 .commit();
     }
@@ -84,10 +90,28 @@ public class FeedsFragment extends BaseFragment {
     protected void configureToolbar(@NonNull Toolbar toolbar) {
         super.configureToolbar(toolbar);
         toolbar.setTitle(R.string.app_name);
+        toolbar.inflateMenu(R.menu.news_menu);
+        toolbar.setOnMenuItemClickListener(item -> {
+            presenter.onMenuItemClick(item.getTitle().toString().toLowerCase());
+            return true;
+        });
     }
 
     @Override
     public boolean onBackPressed() {
-        return true;
+        return false;
+    }
+
+    public void showLoading(boolean b) {
+        progressBar.setVisibility(b ? View.VISIBLE : View.GONE);
+        swl.setRefreshing(b);
+        placeholder.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError() {
+        progressBar.setVisibility(View.GONE);
+        placeholder.setVisibility(View.VISIBLE);
+        swl.setRefreshing(false);
     }
 }
