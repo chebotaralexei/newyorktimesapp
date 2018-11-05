@@ -88,8 +88,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
             topic.setVisibility(TextUtils.isEmpty(newsItem.getSection()) ? View.GONE : View.VISIBLE);
             description.setText(newsItem.getDescription());
             time.setText(Utils.formatDate(Utils.getDate(newsItem.getPublishDate())));
-            if (!newsItem.getMultimedia().isEmpty()) {
-                requestManager.load(newsItem.getMultimedia().get(0).getUrl())
+            if (newsItem.getMultimediaImage() != null) {
+                requestManager.load(newsItem.getMultimediaImage().getUrl())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e,

@@ -49,8 +49,8 @@ public class FeedFragment extends MvpBaseFragment {
         title.setText(feed.getTitle());
         fullText.setText(feed.getDescription());
         time.setText(Utils.formatDate(Utils.getDate(feed.getPublishDate())));
-        if (!feed.getMultimedia().isEmpty())
-            Glide.with(getContext()).load(feed.getMultimedia().get(0).getUrl()).into(image);
+        if (feed.getMultimediaImage() != null)
+            Glide.with(getContext()).load(feed.getMultimediaImage().getUrl()).into(image);
     }
 
     @Override
