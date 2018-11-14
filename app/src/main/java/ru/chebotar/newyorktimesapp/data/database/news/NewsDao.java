@@ -18,7 +18,7 @@ public interface NewsDao {
    List<DbNews> getAll();
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
-   void insertAll(DbNews... dbNews);
+   void insertAll(List<DbNews> dbNews);
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insert(DbNews dbNews);
@@ -34,5 +34,8 @@ public interface NewsDao {
 
    @Query("SELECT * FROM news WHERE title IN (:titles)")
    Observable<List<DbNews>> loadAllByTitles(String[] titles);
+
+   @Query("SELECT * FROM news")
+   Observable<List<NewsWithMultimedia>> getNewsWithMultimedia();
 }
 

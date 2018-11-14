@@ -3,7 +3,6 @@ package ru.chebotar.newyorktimesapp.presetation.feeds;
 import com.arellomobile.mvp.InjectViewState;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,12 +12,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.chebotar.newyorktimesapp.App;
 import ru.chebotar.newyorktimesapp.data.database.AppDatabase;
+import ru.chebotar.newyorktimesapp.data.database.ListMapping;
 import ru.chebotar.newyorktimesapp.data.database.multimedia.DbMultimedia;
 import ru.chebotar.newyorktimesapp.data.database.multimedia.DbMultimediaToMultimediaDtoMapping;
 import ru.chebotar.newyorktimesapp.data.database.multimedia.MultimediaDtoToDbMultimediaMapping;
 import ru.chebotar.newyorktimesapp.data.database.news.DbNews;
 import ru.chebotar.newyorktimesapp.data.database.news.DbNewsToNewsDtoMapping;
 import ru.chebotar.newyorktimesapp.data.database.news.NewsDtoToDbNewsMapping;
+import ru.chebotar.newyorktimesapp.data.database.news.NewsWithMultimedia;
 import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
 import ru.chebotar.newyorktimesapp.domain.interactors.NewsScreenInteractor;
 import ru.chebotar.newyorktimesapp.presetation.base.MvpBasePresenter;
@@ -47,6 +48,7 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
 
 
     public void getFeeds(boolean progress) {
+
         compositeDisposable.add(
                 newsScreenInteractor.getNews(section)
                         .subscribeOn(Schedulers.io())
@@ -69,26 +71,26 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
             DbNews dbNews = dtoToDbNewsMapping.map(newsDTO);
             dbNewsList.add(dbNews);
 
-            DbMultimedia dbMultimedia = dtoToDbMultimediaMapping.map(newsDTO.getMultimediaImage());
-            dbMultimedia.setNewsId(dbNews.getId());
-            dbMultimediaList.add(dbMultimedia);
+            List<DbMultimedia> dbMultimedia = new ListMapping<>(dtoToDbMultimediaMapping).map(newsDTO.getMultimedia());
+            for (DbMultimedia multimedia : dbMultimedia) {
+                multimedia.setNewsId(dbNews.getId());
+            }
+            dbMultimediaList.addAll(dbMultimedia);
         }
         appDatabase.newsDao().deleteAll();
-        DbNews[] dbNewsArray = dbNewsList.toArray(new DbNews[dbNewsList.size()]);
-        appDatabase.newsDao().insertAll(dbNewsArray);
+        appDatabase.newsDao().insertAll(dbNewsList);
 
         appDatabase.multimediaDao().deleteAll();
-        DbMultimedia[] dbMultimediaArray = dbMultimediaList.toArray(new DbMultimedia[dbMultimediaList.size()]);
-        appDatabase.multimediaDao().insertAll(dbMultimediaArray);
+        appDatabase.multimediaDao().insertAll(dbMultimediaList);
     }
 
     private List<NewsDTO> getData() {
-        List<DbNews> dbNewsList = appDatabase.newsDao().getAll();
+        List<NewsWithMultimedia> dbNewsList = appDatabase.newsDao().getNewsWithMultimedia().blockingFirst();
         List<NewsDTO> newsList = new ArrayList<>();
-        for (DbNews dbNews : dbNewsList) {
-            NewsDTO news = dbToDtoNewsMapping.map(dbNews);
-            DbMultimedia media = appDatabase.multimediaDao().findByNewsId(dbNews.getId());
-            news.setMultimedia(Collections.singletonList(dbToDtoMultimediaMapping.map(media)));
+        for (NewsWithMultimedia dbNews : dbNewsList) {
+            NewsDTO news = dbToDtoNewsMapping.map(dbNews.dbNews);
+            List<DbMultimedia> media = dbNews.dbMultimedia;
+            news.setMultimedia((new ListMapping<>(dbToDtoMultimediaMapping)).map(media));
             newsList.add(news);
         }
         return newsList;

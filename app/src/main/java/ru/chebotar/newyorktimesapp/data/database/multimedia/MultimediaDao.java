@@ -19,7 +19,7 @@ public interface MultimediaDao {
    Observable<List<DbMultimedia>> getAll();
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
-   void insertAll(DbMultimedia... dbMultimedias);
+   void insertAll(List<DbMultimedia> dbMultimedias);
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insert(DbMultimedia dbMultimedia);
