@@ -54,8 +54,8 @@ public class Preferences {
         return sharedPreferences.getBoolean(KEY_FIRST_RUN, true);
     }
 
-    public void setFirstRun() {
-        sharedPreferences.edit().putBoolean(KEY_FIRST_RUN, false).apply();
+    public void setFirstRun(final boolean firstRun) {
+        sharedPreferences.edit().putBoolean(KEY_FIRST_RUN, firstRun).apply();
     }
 
     public void setMock(boolean mock) {

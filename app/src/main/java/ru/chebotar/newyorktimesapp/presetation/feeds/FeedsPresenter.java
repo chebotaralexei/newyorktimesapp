@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.chebotar.newyorktimesapp.App;
@@ -48,20 +49,19 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
 
 
     public void getFeeds(boolean progress) {
-
         compositeDisposable.add(
                 newsScreenInteractor.getNews(section)
                         .subscribeOn(Schedulers.io())
                         .map(newsDTOResult -> newsDTOResult.data)
-                        .doOnSuccess(this::saveData)
-                        .onErrorReturn(throwable -> getData())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe(disposable -> getViewState().showLoading(progress))
-                        .subscribe(newsItems -> {
-                            getViewState().showData(newsItems);
-                            getViewState().showLoading(false);
-                        }, t -> getViewState().showData(getData()))
+                        .subscribe(this::saveData, t -> getViewState().showError())
         );
+    }
+    public void observeFeeds() {
+        compositeDisposable.add(observeData()
+                .subscribe(newsDTOS -> {
+                    getViewState().showData(newsDTOS);
+                    getViewState().showLoading(false);
+                }, t -> getViewState().showError()));
     }
 
     private void saveData(List<NewsDTO> news) {
@@ -84,16 +84,21 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
         appDatabase.multimediaDao().insertAll(dbMultimediaList);
     }
 
-    private List<NewsDTO> getData() {
-        List<NewsWithMultimedia> dbNewsList = appDatabase.newsDao().getNewsWithMultimedia().blockingFirst();
-        List<NewsDTO> newsList = new ArrayList<>();
-        for (NewsWithMultimedia dbNews : dbNewsList) {
-            NewsDTO news = dbToDtoNewsMapping.map(dbNews.dbNews);
-            List<DbMultimedia> media = dbNews.dbMultimedia;
-            news.setMultimedia((new ListMapping<>(dbToDtoMultimediaMapping)).map(media));
-            newsList.add(news);
-        }
-        return newsList;
+    private Observable<List<NewsDTO>> observeData() {
+        return appDatabase.newsDao().getNewsWithMultimedia()
+                .map(newsWithMultimedia -> {
+                    List<NewsDTO> newsList = new ArrayList<>();
+                    for (NewsWithMultimedia dbNews : newsWithMultimedia) {
+                        NewsDTO news = dbToDtoNewsMapping.map(dbNews.dbNews);
+                        List<DbMultimedia> media = dbNews.dbMultimedia;
+                        news.setMultimedia((new ListMapping<>(dbToDtoMultimediaMapping)).map(media));
+                        newsList.add(news);
+                    }
+                    return newsList;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
     }
 
 

@@ -67,7 +67,7 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new FeedsAdapter(Glide.with(getContext()), this::navigateToFeed);
         recyclerView.setAdapter(adapter);
-        presenter.getFeeds(true);
+        presenter.observeFeeds();
         swl.setOnRefreshListener(() -> presenter.getFeeds(false));
         refresh.setOnClickListener(v -> presenter.getFeeds(true));
     }
