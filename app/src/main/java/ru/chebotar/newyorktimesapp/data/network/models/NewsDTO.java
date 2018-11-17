@@ -93,6 +93,11 @@ public class NewsDTO implements Parcelable {
     }
 
     @NonNull
+    public String getId() {
+        return title + url;
+    }
+
+    @NonNull
     public String getDescription() {
         return description;
     }
@@ -138,5 +143,14 @@ public class NewsDTO implements Parcelable {
 
     public void setMultimedia(List<MultimediaDTO> multimedia) {
         this.multimedia = multimedia;
+    }
+
+    @Nullable
+    public MultimediaDTO getBestMultimediaImage() {
+        if (multimedia.isEmpty())
+            return null;
+        else {
+            return multimedia.get(multimedia.size() - 1);
+        }
     }
 }

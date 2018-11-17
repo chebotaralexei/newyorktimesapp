@@ -29,11 +29,11 @@ public interface NewsDao {
    @Query("DELETE FROM news")
    void deleteAll();
 
-   @Query("SELECT * FROM news WHERE title LIKE :title LIMIT 1")
-   Single<DbNews> findByName(String title);
+   @Query("SELECT * FROM news WHERE id LIKE :id LIMIT 1")
+   Single<NewsWithMultimedia> findById(String id);
 
    @Query("SELECT * FROM news WHERE title IN (:titles)")
-   Observable<List<DbNews>> loadAllByTitles(String[] titles);
+   Observable<List<NewsWithMultimedia>> loadAllByTitles(String[] titles);
 
    @Query("SELECT * FROM news")
    Observable<List<NewsWithMultimedia>> getNewsWithMultimedia();

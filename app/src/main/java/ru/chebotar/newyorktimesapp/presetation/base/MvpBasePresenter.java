@@ -25,5 +25,4 @@ public abstract class MvpBasePresenter<T extends MvpView> extends MvpPresenter<T
             compositeDisposable.dispose();
     }
 
-
 }

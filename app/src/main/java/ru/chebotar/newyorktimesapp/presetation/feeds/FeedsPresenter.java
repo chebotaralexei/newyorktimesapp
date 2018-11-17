@@ -48,7 +48,7 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
     }
 
 
-    public void getFeeds(boolean progress) {
+    public void refresh(boolean progress) {
         compositeDisposable.add(
                 newsScreenInteractor.getNews(section)
                         .subscribeOn(Schedulers.io())
@@ -56,12 +56,11 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
                         .subscribe(this::saveData, t -> getViewState().showError())
         );
     }
+
     public void observeFeeds() {
         compositeDisposable.add(observeData()
-                .subscribe(newsDTOS -> {
-                    getViewState().showData(newsDTOS);
-                    getViewState().showLoading(false);
-                }, t -> getViewState().showError()));
+                .subscribe(newsDTOS -> getViewState().showData(newsDTOS), t -> getViewState().showError()));
+
     }
 
     private void saveData(List<NewsDTO> news) {
@@ -101,11 +100,10 @@ public class FeedsPresenter extends MvpBasePresenter<FeedsView> {
 
     }
 
-
     public void onMenuItemClick(String section) {
         if (!this.section.equals(section)) {
             this.section = section;
-            getFeeds(false);
+            refresh(false);
         }
     }
 }

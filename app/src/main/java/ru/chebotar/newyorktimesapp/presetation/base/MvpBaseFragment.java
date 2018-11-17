@@ -23,6 +23,7 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
     private MvpDelegate<? extends MvpBaseFragment> mMvpDelegate;
 
     protected View rootView;
+    @Nullable
     private Toolbar toolbar;
     private Toast toast;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -65,6 +66,11 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
             toolbar.setNavigationIcon(null);
             toolbar.setOnMenuItemClickListener(null);
         }
+    }
+
+    @Nullable
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 
     /**

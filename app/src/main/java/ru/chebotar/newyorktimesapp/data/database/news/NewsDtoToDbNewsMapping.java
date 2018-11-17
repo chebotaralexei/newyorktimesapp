@@ -11,7 +11,7 @@ public class NewsDtoToDbNewsMapping extends Mapping<NewsDTO, DbNews> {
     @Override
     public DbNews map(@NonNull final NewsDTO newsDTO) {
         return new DbNews(
-                newsDTO.getTitle() + newsDTO.getUrl(),
+                newsDTO.getId(),
                 newsDTO.getSection(),
                 newsDTO.getDescription(),
                 newsDTO.getPublishDate(),
