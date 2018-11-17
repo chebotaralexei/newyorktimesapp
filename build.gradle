@@ -7,7 +7,7 @@ buildscript {
     ext.dagger = '2.11'
     ext.butterKnife = '8.8.1'
     ext.moxy = '1.5.3'
-    ext.androidx = "1.0.0"
+    ext.androidx = "1.0.2"
     ext.room = "2.1.0-alpha02"
     ext.glide = "4.8.0"
     ext.cicerone = "4.0.2"

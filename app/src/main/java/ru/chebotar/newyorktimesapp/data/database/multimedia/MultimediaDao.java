@@ -7,6 +7,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import ru.chebotar.newyorktimesapp.data.database.multimedia.DbMultimedia;
@@ -26,6 +27,9 @@ public interface MultimediaDao {
 
    @Delete
    void delete(DbMultimedia dbMultimedia);
+
+   @Update
+   void update(DbMultimedia dbMultimedia);
 
    @Query("DELETE FROM multimedia")
    void deleteAll();

@@ -32,44 +32,106 @@
                     android:scaleType="centerCrop"
                     tools:src="@tools:sample/avatars"/>
 
-                <TextView
-                    android:id="@+id/title"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    tools:text="@tools:sample/cities"/>
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/roboto_regular"
-                    android:lines="1"
-                    android:textSize="12sp"
-                    tools:text="@tools:sample/cities"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/content"
+                        android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/full_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textSize="14sp"
-                    tools:text="@tools:sample/cities"/>
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            tools:text="@tools:sample/cities"/>
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:lines="1"
+                            android:textSize="12sp"
+                            tools:text="@tools:sample/cities"/>
+
+                        <TextView
+                            android:id="@+id/full_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="14sp"
+                            tools:text="@tools:sample/cities"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/content_edit"
+                        tools:visibility="visible"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/title_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            tools:text="@tools:sample/cities"/>
+
+                        <TextView
+                            android:id="@+id/time_no_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:lines="1"
+                            android:textSize="12sp"
+                            tools:text="@tools:sample/cities"/>
+
+                        <EditText
+                            android:id="@+id/full_text_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:lines="5"
+                            android:textSize="14sp"
+                            tools:text="@tools:sample/cities"/>
+                    </LinearLayout>
+                </FrameLayout>
+
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
     <FrameLayout
         android:id="@+id/progressBar"

@@ -94,7 +94,7 @@ public class NewsDTO implements Parcelable {
 
     @NonNull
     public String getId() {
-        return title + url;
+        return url + publishDate;
     }
 
     @NonNull

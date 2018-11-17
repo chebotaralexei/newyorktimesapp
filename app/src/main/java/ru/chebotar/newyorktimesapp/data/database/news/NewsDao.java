@@ -7,6 +7,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -25,6 +26,9 @@ public interface NewsDao {
 
    @Delete
    void delete(DbNews newsItem);
+
+   @Update
+   void update(DbNews newsItem);
 
    @Query("DELETE FROM news")
    void deleteAll();

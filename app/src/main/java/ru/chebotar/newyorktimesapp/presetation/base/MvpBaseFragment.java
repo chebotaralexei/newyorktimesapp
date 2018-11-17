@@ -68,11 +68,6 @@ public abstract class MvpBaseFragment extends Fragment implements BackButtonList
         }
     }
 
-    @Nullable
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
-
     /**
      * Переопределить чтобы проказать кнопку назад в тулбаре
      */

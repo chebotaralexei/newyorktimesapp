@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.chebotar.newyorktimesapp.App;
@@ -17,6 +19,7 @@ import ru.chebotar.newyorktimesapp.data.database.multimedia.DbMultimediaToMultim
 import ru.chebotar.newyorktimesapp.data.database.multimedia.MultimediaDtoToDbMultimediaMapping;
 import ru.chebotar.newyorktimesapp.data.database.news.DbNewsToNewsDtoMapping;
 import ru.chebotar.newyorktimesapp.data.database.news.NewsDtoToDbNewsMapping;
+import ru.chebotar.newyorktimesapp.data.database.news.NewsWithMultimedia;
 import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
 import ru.chebotar.newyorktimesapp.presetation.base.MvpBasePresenter;
 
@@ -35,6 +38,8 @@ public class FeedPresenter extends MvpBasePresenter<FeedView> {
     private DbMultimediaToMultimediaDtoMapping dbToDtoMultimediaMapping = new DbMultimediaToMultimediaDtoMapping();
     @NonNull
     private String feedId;
+    @Nullable
+    private NewsWithMultimedia dbNews;
 
     public FeedPresenter() {
         App.INSTANCE.getAppComponent().inject(this);
@@ -44,6 +49,7 @@ public class FeedPresenter extends MvpBasePresenter<FeedView> {
         this.feedId = feedId;
         compositeDisposable.add(appDatabase.newsDao().findById(feedId)
                 .map(newsWithMultimedia -> {
+                    this.dbNews = newsWithMultimedia;
                     NewsDTO news = dbToDtoNewsMapping.map(newsWithMultimedia.dbNews);
                     List<DbMultimedia> media = newsWithMultimedia.dbMultimedia;
                     news.setMultimedia((new ListMapping<>(dbToDtoMultimediaMapping)).map(media));
@@ -56,9 +62,9 @@ public class FeedPresenter extends MvpBasePresenter<FeedView> {
     }
 
     public void refresh(boolean progress) {
-        // TODO from api
         compositeDisposable.add(appDatabase.newsDao().findById(feedId)
                 .map(newsWithMultimedia -> {
+                    this.dbNews = newsWithMultimedia;
                     NewsDTO news = dbToDtoNewsMapping.map(newsWithMultimedia.dbNews);
                     List<DbMultimedia> media = newsWithMultimedia.dbMultimedia;
                     news.setMultimedia((new ListMapping<>(dbToDtoMultimediaMapping)).map(media));
@@ -71,14 +77,40 @@ public class FeedPresenter extends MvpBasePresenter<FeedView> {
     }
 
     public void onEditClick() {
-        //TODO
+        if (dbNews != null) {
+            getViewState().setEditMode(true);
+        }
     }
 
     public void onDeleteClick() {
-        //TODO
+        if (dbNews != null) {
+            compositeDisposable.add(Completable.fromAction(() ->
+                    appDatabase.newsDao().delete(dbNews.dbNews))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                                getViewState().showMessage("Новость удалена");
+                                getViewState().goBack();
+                            },
+                            throwable -> getViewState().showError()));
+
+        } else {
+            getViewState().showMessage("Нет новости для удаления");
+        }
     }
 
-    public void onSaveClick() {
-        //TODO
+    public void onSaveClick(String title, String text) {
+        dbNews.dbNews.setTitle(title);
+        dbNews.dbNews.setDescription(text);
+        compositeDisposable.add(Completable.fromAction(() ->
+                appDatabase.newsDao().update(dbNews.dbNews))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                            refresh(true);
+                            getViewState().setEditMode(false);
+                        },
+                        throwable -> getViewState().showError()));
+
     }
 }
