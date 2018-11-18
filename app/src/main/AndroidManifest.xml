@@ -16,14 +16,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".presetation.MainActivity"
-            android:configChanges="keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:name=".presetation.SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presetation.MainActivity"
+            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".presetation.TutorialActivity">
+        </activity>
     </application>
+
 </manifest>

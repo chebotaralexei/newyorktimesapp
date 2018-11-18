@@ -1,5 +1,7 @@
 package ru.chebotar.newyorktimesapp.dagger.module;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -34,6 +36,7 @@ public class NetworkModule {
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS);
         builder.addNetworkInterceptor(ApiKeyInterceptor.create(resourceProvider.getString(R.string.api_key_nyt)));
+        builder.addNetworkInterceptor(new StethoInterceptor());
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         builder.addNetworkInterceptor(logging);

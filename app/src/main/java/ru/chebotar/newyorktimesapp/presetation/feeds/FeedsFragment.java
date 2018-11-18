@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ru.chebotar.newyorktimesapp.R;
 import ru.chebotar.newyorktimesapp.data.network.models.NewsDTO;
-import ru.chebotar.newyorktimesapp.presetation.WebViewFragment;
 import ru.chebotar.newyorktimesapp.presetation.base.MvpBaseFragment;
+import ru.chebotar.newyorktimesapp.presetation.feed.FeedFragment;
 
 public class FeedsFragment extends MvpBaseFragment implements FeedsView {
 
@@ -67,13 +67,14 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new FeedsAdapter(Glide.with(getContext()), this::navigateToFeed);
         recyclerView.setAdapter(adapter);
-        presenter.getFeeds(true);
-        swl.setOnRefreshListener(() -> presenter.getFeeds(false));
-        refresh.setOnClickListener(v -> presenter.getFeeds(true));
+        presenter.observeFeeds();
+        swl.setOnRefreshListener(() -> presenter.refresh(false));
+        refresh.setOnClickListener(v -> presenter.refresh(true));
     }
 
     public void showData(List<NewsDTO> data) {
         adapter.setData(data);
+        showLoading(false);
     }
 
 
@@ -81,7 +82,7 @@ public class FeedsFragment extends MvpBaseFragment implements FeedsView {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, WebViewFragment.getNewInstance(WebViewFragment.getBundle(feed.getUrl())))
+                .replace(R.id.container, FeedFragment.getNewInstance(FeedFragment.getBundle(feed.getId())))
                 .addToBackStack(null)
                 .commit();
     }
